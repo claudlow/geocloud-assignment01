@@ -9,6 +9,7 @@
 
 -- Enter your SQL query here
 CREATE EXTENSION IF NOT EXISTS postgis;
+
 SELECT 
     id AS station_id, 
     ST_SetSRID(ST_MakePoint(longitude, latitude), 4326) AS station_geog, 
