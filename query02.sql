@@ -10,7 +10,15 @@
 */
 
 -- Enter your SQL query here
-
+with trip_counts as (
+    select
+    (select count(*) from indego.trips_2021_q3) as num_trips_21,
+    (select count(*) from indego.trips_2022_q3) as num_trips_22)
+select 
+num_trips_21, 
+num_trips_22,
+round(100.0*(num_trips_22 - num_trips_21) / num_trips_21, 2) as perc_change 
+from trip_counts;
 
 
 /*
