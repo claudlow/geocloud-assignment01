@@ -11,15 +11,16 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 SET search_path to public;
 SELECT 
-    id AS station_id, 
-    ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography AS station_geog, 
-    ROUND(
-        ST_Distance(
-            ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography, 
-            ST_SetSRID(ST_MakePoint(-75.192584, 39.952415), 4326)::geography
-        ) / 50
-    ) * 50 AS distance
+  id AS station_id,
+  wkb_geometry::geography AS station_geog,
+  ROUND(
+    ST_Distance(
+      ST_SetSRID(ST_MakePoint(-75.192584, 39.952415), 4326)::geography,
+      wkb_geometry::geography
+    ) / 50
+  ) * 50 AS distance
 FROM indego.station_statuses;
+
 
 
 
