@@ -9,10 +9,10 @@
 
 -- Enter your SQL query here
 CREATE EXTENSION IF NOT EXISTS postgis;
-
+SET search_path to public;
 SELECT 
     id AS station_id, 
-    ST_SetSRID(ST_MakePoint(longitude, latitude), 4326) AS station_geog, 
+    ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography AS station_geog, 
     ROUND(
         ST_Distance(
             ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography, 
@@ -20,6 +20,8 @@ SELECT
         ) / 50
     ) * 50 AS distance
 FROM indego.station_statuses;
+
+
 
 
 
